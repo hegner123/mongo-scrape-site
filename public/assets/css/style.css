@@ -38,3 +38,9 @@ textarea {
   height: 200px;
   font-size: 18px;
 }
+
+.notes-item{
+  padding:20px;
+  background:white;
+  border-radius:20px;
+}
