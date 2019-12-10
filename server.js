@@ -2,7 +2,6 @@ var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 var app = express();
-
 // Set Handlebars.
 var hbs = require("express-handlebars");
 
