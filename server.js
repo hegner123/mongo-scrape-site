@@ -30,7 +30,7 @@ app.use(express.static("public/assets"));
 
 
 // Connect to the Mongo DB
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 
 // Routes
