@@ -34,7 +34,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 
 // Routes
-require("./routes/htmlRoutes")(app);
+require("../routes/htmlRoutes")(app);
 
 // Start the server
 app.listen(PORT, function() {
