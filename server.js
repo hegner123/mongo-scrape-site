@@ -30,7 +30,7 @@ app.use(express.static("public/assets"));
 
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://heroku_6pqvsx25:altaq7h8p1pqpuen54kl2unfle@ds253428.mlab.com:53428/heroku_6pqvsx25", { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 
 // Routes
