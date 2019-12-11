@@ -1,9 +1,9 @@
-var express = require("express");
-var logger = require("morgan");
-var mongoose = require("mongoose");
-var app = express();
+const express = require("express");
+const logger = require("morgan");
+const mongoose = require("mongoose");
+const app = express();
 // Set Handlebars.
-var hbs = require("express-handlebars");
+const hbs = require("express-handlebars");
 
 app.engine( 'handlebars', hbs( {
   extname: 'handlebars',
@@ -13,7 +13,7 @@ app.engine( 'handlebars', hbs( {
 } ) );
 app.set("view engine", "handlebars");
 
-var PORT = 8080;
+let PORT = 8080;
 
 // Initialize Express
 
