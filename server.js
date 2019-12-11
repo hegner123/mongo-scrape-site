@@ -13,7 +13,7 @@ app.engine( 'handlebars', hbs( {
 } ) );
 app.set("view engine", "handlebars");
 
-let PORT = $PORT;
+let PORT = process.env.PORT || 8080;
 
 // Initialize Express
 
