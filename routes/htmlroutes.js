@@ -1,8 +1,8 @@
 
-var axios = require("axios");
-var cheerio = require("cheerio");
+const axios = require("axios");
+const cheerio = require("cheerio");
 // Require all models
-var db = require("../models");
+const db = require("../models");
 
 
 
@@ -19,7 +19,7 @@ app.get("/scrape", function(req, res) {
     // Now, we grab every h2 within an article tag, and do the following:
     $("div .article-deck").each(function(i, element) {
       // Save an empty result object
-      var result = {};
+      let result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(this)
@@ -33,7 +33,7 @@ app.get("/scrape", function(req, res) {
       db.Article.create(result)
         .then(function(dbArticle) {
           // View the added result in the console
-          console.log(dbArticle);
+
         })
         .catch(function(err) {
           // If an error occurred, log it
@@ -46,19 +46,8 @@ app.get("/scrape", function(req, res) {
   });
 });
 
-// Route for getting all Articles from the db
-app.get("/articles", function(req, res) {
-  // Grab every document in the Articles collection
-  db.Article.find({})
-    .then(function(dbArticle) {
-      // If we were able to successfully find Articles, send them back to the client
-      res.json(dbArticle);
-    })
-    .catch(function(err) {
-      // If an error occurred, send it to the client
-      res.json(err);
-    });
-});
+
+
 
 // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/articles/:id", function(req, res) {
@@ -79,11 +68,11 @@ app.get("/articles/:id", function(req, res) {
 // Route for saving/updating an Article's associated Note
 app.post("/articles/note", function(req, res) {
   // Create a new note and pass the req.body to the entry
-  console.log(req.body)
-    var thisArticle = req.body.articleID;
-    var thisNoteTitle = req.body.title;
-    var thisNoteBody = req.body.body;
-    var newNote = {
+  
+    let thisArticle = req.body.articleID;
+    let thisNoteTitle = req.body.title;
+    let thisNoteBody = req.body.body;
+    let newNote = {
       title: thisNoteTitle,
       body: thisNoteBody,
     };
@@ -93,14 +82,45 @@ app.post("/articles/note", function(req, res) {
     $push: {
       notes: newNote
     }
-  }).then(function (data) {
+  }).then(function () {
     res.send('/')
   })
+  .catch(function(err) {
+    // If an error occurred, send it to the client
+    res.json(err);
+  });
+
+});
+
+app.delete("/articles/:articleID/:noteID", function(req,res){
+  console.log(req.params)
+  let thisArticle = req.params.articleID;
+  let thisNote = req.params.noteID
+  db.Article.findOne({_id: thisArticle}, function (err, result) {
+    result.notes.id(thisNote).remove();
+    result.save();  
+
+}).then(function (data){
+  console.log(data);
+  res.send("/")
+});
 
 });
 
 app.get("/", function(req, res){
-  res.render('index')
+  db.Article.find({})
+  .then(function(data) {
+let obj = {
+  articles:data
+}
+console.log(obj)
+    res.render("index" , obj);
+  })
+  .catch(function(err) {
+    // If an error occurred, send it to the client
+    res.json(err);
+  });
+  
 });
 
 };

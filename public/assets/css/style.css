@@ -18,7 +18,6 @@ body {
 #articles {
   display: inline-block;
   overflow: auto;
-  
   height: 700px;
 }
 

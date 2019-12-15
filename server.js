@@ -15,10 +15,7 @@ app.set("view engine", "handlebars");
 
 let PORT = process.env.PORT || 8080;
 
-// Initialize Express
 
-
-// Configure middleware
 
 // Use morgan logger for logging requests
 app.use(logger("dev"));
@@ -30,7 +27,8 @@ app.use(express.static("public/assets"));
 
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 
 // Routes
